@@ -486,11 +486,10 @@ def read_preferences_file():
         config = None
         try:
             config = open(_config_path, 'rb')
-            version = cPickle.load(config)
             old_prefs = cPickle.load(config)
             config.close()
         except Exception:
-            print '! Corrupt preferences file "%s", deleting...' % _config_path
+            print('! Corrupt preferences file "%s", deleting...' % _config_path)
             if config is not None:
                 config.close()
             os.remove(_config_path)
@@ -503,6 +502,5 @@ def read_preferences_file():
 def write_preferences_file():
     """Write preference data to disk."""
     config = open(_config_path, 'wb')
-    cPickle.dump(constants.VERSION, config, cPickle.HIGHEST_PROTOCOL)
     cPickle.dump(prefs, config, cPickle.HIGHEST_PROTOCOL)
     config.close()
