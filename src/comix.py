@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 """Comix - GTK Comic Book Viewer
 
@@ -137,7 +137,7 @@ def run():
         fullscreen=fullscreen, show_library=show_library,
         open_path=open_path, open_page=open_page)
     deprecated.check_for_deprecated_files(window)
-    
+
     def sigterm_handler(signal, frame):
         gobject.idle_add(window.terminate_program)
     signal.signal(signal.SIGTERM, sigterm_handler)
