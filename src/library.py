@@ -451,17 +451,18 @@ class _BookArea(gtk.ScrolledWindow):
         gtk.ScrolledWindow.__init__(self)
         self._library = library
         self._stop_update = False
+        self._wait_release = False
         self.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
         self._liststore = gtk.ListStore(gtk.gdk.Pixbuf, int) # (Cover, ID).
         self._iconview = gtk.IconView(self._liststore)
         self._iconview.set_pixbuf_column(0)
-        self._iconview.connect('item_activated', self._book_activated)
         self._iconview.connect('selection_changed', self._selection_changed)
         self._iconview.connect_after('drag_begin', self._drag_begin)
         self._iconview.connect('drag_data_get', self._drag_data_get)
         self._iconview.connect('drag_data_received', self._drag_data_received)
         self._iconview.connect('button_press_event', self._button_press)
+        self._iconview.connect('button_release_event', self._button_release)
         self._iconview.connect('key_press_event', self._key_press)
         self._iconview.modify_base(gtk.STATE_NORMAL, gtk.gdk.Color()) # Black.
         self._iconview.enable_model_drag_source(0,
@@ -609,15 +610,22 @@ class _BookArea(gtk.ScrolledWindow):
             self._library.set_status_message(
                 _('Removed %d book(s) from the library.') % len(selected))
 
+    def _button_release(self, iconview, event):
+        if self._wait_release and event.type == gtk.gdk.BUTTON_RELEASE:
+            path = iconview.get_path_at_pos(int(event.x), int(event.y))
+            if path is None:
+                return
+            self._book_activated(iconview, path)
+
     def _button_press(self, iconview, event):
         """Handle mouse button presses on the _BookArea."""
         path = iconview.get_path_at_pos(int(event.x), int(event.y))
         if path is None:
             return
-        # For some reason we don't always get an item_activated event when
-        # double-clicking on an icon, so we handle it explicitly here.
         if event.type == gtk.gdk._2BUTTON_PRESS:
-            self._book_activated(iconview, path)
+            self._wait_release = True
+        else:
+            self._wait_release = False
         if event.button == 3:
             if not iconview.path_is_selected(path):
                 iconview.unselect_all()
@@ -640,6 +648,8 @@ class _BookArea(gtk.ScrolledWindow):
         """Handle key presses on the _BookArea."""
         if event.keyval == gtk.keysyms.Delete:
             self._remove_books_from_collection()
+        elif event.keyval == gtk.keysyms.Return:
+            self.open_selected_book()
 
     def _drag_begin(self, iconview, context):
         """Create a cursor image for drag-n-drop from the library.
