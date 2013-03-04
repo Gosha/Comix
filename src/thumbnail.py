@@ -49,7 +49,7 @@ def get_thumbnail(path, create=True, dst_dir=_thumbdir):
             mtime = int(info['Thumb::MTime'])
         except Exception:
             mtime = -1
-        if os.stat(path).st_mtime != mtime:
+        if int(os.stat(path).st_mtime) != mtime:
             return _get_new_thumbnail(path, create, dst_dir)
         return gtk.gdk.pixbuf_new_from_file(thumbpath)
     except Exception:
