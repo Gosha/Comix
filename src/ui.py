@@ -61,6 +61,8 @@ class MainUI(gtk.UIManager):
                 None, None, window.flip_vertically),
             ('extract_page', None, _('Extract page...'),
                 None, None, window.extract_page),
+            ('delete_current', gtk.STOCK_DELETE, _('_Del_current')
+              , 'Delete', None, window.file_handler.delete_current),
             ('menu_zoom', 'comix-zoom', _('Manual _Zoom')),
             ('menu_recent', None, _('Open _recent')),
             ('menu_bookmarks', None, _('_Bookmarks')),
@@ -175,6 +177,7 @@ class MainUI(gtk.UIManager):
                 <menu action="menu_edit">
                     <menuitem action="thumbnail_maintenance" />
                     <menuitem action="preferences" />
+                    <menuitem action="delete_current" />
                 </menu>
                 <menu action="menu_view">
                     <menuitem action="fullscreen" />

@@ -59,7 +59,7 @@ class FileHandler:
             try:
                 """ Check for gif in the name of the file.  If it is a gif,
                 and the user wishes GIFs to be animated, load it as a
-                PixbufAnimation and make sure that it actually is animated. 
+                PixbufAnimation and make sure that it actually is animated.
                 If it isn't animated, load a pixbuf instead.  """
                 if not (prefs['animate gifs'] or prefs['animate']) \
                     or "gif" not in self._image_files[index][-3:].lower():
@@ -631,6 +631,12 @@ class FileHandler:
         while not self._extractor.is_ready(name):
             self._condition.wait()
         self._condition.release()
+
+    def delete_current(self, *args):
+        to_delete = self._base_path
+        if to_delete:
+            self._open_next_archive()
+            os.remove(to_delete)
 
 
 def thread_delete(path):
