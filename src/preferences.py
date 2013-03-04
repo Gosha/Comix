@@ -4,7 +4,6 @@ import os
 import cPickle
 
 import gtk
-import pango
 
 import constants
 import labels

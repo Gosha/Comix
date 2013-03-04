@@ -3,7 +3,6 @@
 import os
 
 import gtk
-import pango
 
 import encoding
 

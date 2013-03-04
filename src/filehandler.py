@@ -3,10 +3,8 @@
 import os
 import sys
 import shutil
-import locale
 import tempfile
 import gc
-import shutil
 import threading
 import re
 

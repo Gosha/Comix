@@ -1,7 +1,5 @@
 """constants.py - Miscellaneous constants."""
 
-import os
-
 import portability
 
 VERSION = '4.0.5'

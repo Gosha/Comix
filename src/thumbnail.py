@@ -5,7 +5,7 @@ Only normal size (i.e. 128x128 px) thumbnails are supported.
 """
 
 import os
-from urllib import pathname2url, url2pathname
+from urllib import pathname2url
 try: # The md5 module is deprecated as of Python 2.5, replaced by hashlib.
     from hashlib import md5
 except ImportError:
@@ -98,7 +98,7 @@ def _get_new_archive_thumbnail(path, dst_dir):
         sub_re = re.compile(r'\.(tar|gz|bz2|rar|zip|7z)\s*$', re.I)
         subs = filter(sub_re.search, files)
         if subs:
-            subarchive = extractor.set_files([subs[0]])
+            extractor.set_files([subs[0]])
             extractor.extract()
             condition.acquire()
             while not extractor.is_ready(subs[0]):

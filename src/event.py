@@ -7,7 +7,6 @@ given its own file for the sake of readability.
 import urllib
 
 import gtk
-import gobject
 
 import cursor
 import preferences

@@ -10,7 +10,6 @@ except ImportError:
     pass
 
 import gtk
-import pango
 
 import archive
 import encoding

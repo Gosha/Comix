@@ -8,7 +8,6 @@ import threading
 import gtk
 import gobject
 
-import constants
 import cursor
 import encoding
 import enhance

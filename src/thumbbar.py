@@ -9,7 +9,6 @@ import ImageDraw
 
 import image
 from preferences import prefs
-import thumbnail
 
 
 class ThumbnailSidebar(gtk.HBox):

@@ -12,7 +12,6 @@ import comment
 import edit
 import enhance
 import filechooser
-import filehandler
 import library
 import preferences
 import properties

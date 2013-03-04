@@ -1,6 +1,5 @@
 """histogram.py - Draw histograms (RGB) from pixbufs."""
 
-import gtk
 import Image
 import ImageDraw
 import ImageOps

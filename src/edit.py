@@ -5,10 +5,8 @@ import tempfile
 
 import gobject
 import gtk
-import pango
 
 import archive
-import cursor
 import encoding
 import filechooser
 import filehandler

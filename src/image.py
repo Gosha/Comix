@@ -4,7 +4,6 @@ import gtk
 import Image
 import ImageEnhance
 import ImageOps
-import ImageStat
 
 from preferences import prefs
 

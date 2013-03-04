@@ -68,8 +68,6 @@ except ImportError:
 
 import constants
 import deprecated
-import filehandler
-import locale
 import main
 import icons
 import preferences

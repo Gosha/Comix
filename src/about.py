@@ -5,7 +5,6 @@ import os
 import sys
 
 import gtk
-import pango
 
 import constants
 import labels

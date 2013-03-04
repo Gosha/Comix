@@ -7,7 +7,6 @@ import gtk
 import gobject
 
 import constants
-import constants
 
 _pickle_path = os.path.join(constants.DATA_DIR, 'bookmarks.pickle')
 
