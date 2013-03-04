@@ -83,6 +83,7 @@ class LibraryBackend:
         thumb = thumbnail.get_thumbnail(path, create=True, dst_dir=_cover_dir)
         if thumb is None:
             print '! Could not get cover for %s' % path
+            self.remove_book(book)
         return thumb
 
     def get_book_path(self, book):
