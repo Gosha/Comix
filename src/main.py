@@ -22,6 +22,7 @@ import slideshow
 import status
 import thumbbar
 
+import lastvisited
 
 class MainWindow(gtk.Window):
 
@@ -61,6 +62,8 @@ class MainWindow(gtk.Window):
         self.actiongroup = self.ui_manager.get_action_groups()[0]
         self.left_image = gtk.Image()
         self.right_image = gtk.Image()
+
+        self.lastv = lastvisited.LastVisited()
 
         self._image_box = gtk.HBox(False, 2)
         self._main_layout = gtk.Layout()
@@ -404,6 +407,7 @@ class MainWindow(gtk.Window):
             prefs['vertical flip'] = False
         self.thumbnailsidebar.update_select()
         self.draw_image(at_bottom=at_bottom)
+        self.lastv.update_entry(self.file_handler)
 
     def next_page(self, *args):
         if self.file_handler.next_page():
@@ -800,6 +804,9 @@ class MainWindow(gtk.Window):
         else:
             prefs['path to last file'] = ''
             prefs['page of last file'] = 1
+
+        self.lastv.save_file()
+
         self.file_handler.cleanup()
         preferences.write_preferences_file()
         self.ui_manager.bookmarks.write_bookmarks_file()
